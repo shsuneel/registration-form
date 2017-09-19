@@ -1,7 +1,5 @@
-<!-- Imports polymer -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<!-- Defines element markup -->
 <dom-module id="registration-form">
     <template>
         <div class="container" style="top: 30px; position: absolute">
@@ -13,44 +11,53 @@
                     <div class="panel-body">
                         <form role="form" id="signUpForm">
                             <div class="form-group">
-                                <input type="text" required id="userName"  class="form-control input-sm"
+                                <input type="text" minlength="4" maxlength="15" required id="userName"
+                                       class="form-control input-sm"
                                        placeholder="User Name">
                             </div>
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="text" required id="fName" class="form-control input-sm" placeholder="First Name">
+                                        <input type="text" minlength="4" maxlength="15" required id="fName"
+                                               class="form-control input-sm" placeholder="First Name">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="text" required id="lName" formControlName="lName" class="form-control input-sm" placeholder="Last Name">
+                                        <input type="text" minlength="4" maxlength="15" required id="lName"
+                                               formControlName="lName" class="form-control input-sm"
+                                               placeholder="Last Name">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <input type="email" required id="email" email class="form-control input-sm" placeholder="Email Address">
+                                <input type="email" minlength="4" required id="email" email
+                                       class="form-control input-sm" placeholder="Email Address">
                             </div>
 
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="password" required id="password" class="form-control input-sm" placeholder="Password">
+                                        <input type="password" minlength="4" maxlength="15" required id="password"
+                                               class="form-control input-sm" placeholder="Password">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="password" required id="confirmPassword"  class="form-control input-sm"
+                                        <input type="password" minlength="4" maxlength="15" required
+                                               id="confirmPassword" class="form-control input-sm"
                                                placeholder="Confirm Password">
                                     </div>
                                 </div>
                             </div>
-                            <input on-click="onSubmit" type="submit" required value="register" class="btn btn-info btn-block">
+                            <button on-click="onSubmit" type="submit" required value="register"
+                                    class="btn btn-info btn-block">Register
+                            </button>
                         </form>
                     </div>
                     <div>
-                        <h4>{{registrationSuccess}}</h4>
+                        <h4>{{passwordCheck}}</h4>
                     </div>
                 </div>
             </div>
@@ -61,15 +68,6 @@
 <!-- Registers custom element -->
 <script>
 
-    const errorMsg = {
-        email: "Email is not valid",
-        confirmPassword: "Confirm Password is not valid, min length is 6 and should match to Password",
-        password: "Password is not valid, min length is 6",
-        lName: "Last Name is not valid min length is 4 and maximum is 15",
-        fName: "First Name is not valid min length is 4 and maximum is 15",
-        userName: "User Name is not valid min length is 4 and maximum is 15"
-    };
-
     Polymer({
         is: 'registration-form',
         properties: {
@@ -77,24 +75,44 @@
                 type: Boolean,
                 value: false
             },
+            passwordCheck: {
+                type: String,
+                value: ""
+            },
             signUpForm: {
                 type: HTMLElement,
                 value: document.getElementById('signUpForm')
+            },
+            password: {
+                type: HTMLElement,
+                value: document.getElementById('password')
+            },
+            confirmPassword: {
+                type: HTMLElement,
+                value: document.getElementById('confirmPassword')
+            },
+
+            submit: {
+                type: Function
             }
         },
-        onSubmit: function(event){
-            for(let i in signUpForm){
-                let formElement = signUpForm[i];
-                formElement.validationMessage = this.setValidationMessage(formElement.id);
-                debugger;
+        onSubmit: function (event) {
+            var formData;
+            if (password.value !== confirmPassword.value) {
+                event.preventDefault();
+                this.passwordCheck = "Passwords are not matched"
+                return;
+            } else {
+                event.preventDefault();
+                formData = {
+                    password: signUpForm.elements.password.value,
+                    userName: signUpForm.elements.userName.value,
+                    lName: signUpForm.elements.lName.value,
+                    fName: signUpForm.elements.fName.value,
+                    email: signUpForm.elements.email.value
+                }
+                this.dispatchEvent(new CustomEvent('onformsubmit', {bubbles: true, composed: true, detail: formData}));
             }
-
-            //alert("form submit calls")
-        },
-
-        setValidationMessage: function(id) {
-            return errorMsg[id];
         }
-
     });
 </script>

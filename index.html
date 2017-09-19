@@ -5,10 +5,8 @@
     <meta charset="utf-8">
     <title>Registration Form</title>
 
-    <!-- Imports polyfill -->
     <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 
-    <!-- Imports custom element -->
     <link rel="stylesheet" href="lib/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/css/main.css">
     <link rel="import" href="components/registration-form.html">
@@ -16,8 +14,16 @@
 </head>
 <body>
 
-    <!-- Runs custom element -->
-    <registration-form who="Dragos and Kirill"></registration-form>
+    <registration-form></registration-form>
 
+    <script>
+        window.addEventListener('onformsubmit', function(event){
+            var formData = "";
+            for(var prop in event.detail){
+                formData += prop + ': ' +  event.detail[prop] + "|"
+            }
+            alert(formData.split('|').join('\n'));
+        })
+    </script>
 </body>
 </html>
