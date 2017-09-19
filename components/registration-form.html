@@ -97,13 +97,12 @@
             }
         },
         onSubmit: function (event) {
+            event.preventDefault();
             var formData;
             if (password.value !== confirmPassword.value) {
-                event.preventDefault();
                 this.passwordCheck = "Passwords are not matched"
                 return;
             } else {
-                event.preventDefault();
                 formData = {
                     password: signUpForm.elements.password.value,
                     userName: signUpForm.elements.userName.value,
