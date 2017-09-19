@@ -3,6 +3,7 @@
 
 # IDEs and editors
 .idea
+.idea/encodings.xml
 .project
 .classpath
 .c9/
