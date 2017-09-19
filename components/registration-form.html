@@ -11,7 +11,7 @@
                         <h3 class="panel-title">Please sign up</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" (ngSubmit)="onSubmit()">
+                        <form role="form" id="signUpForm">
                             <div class="form-group">
                                 <input type="text" required id="userName"  class="form-control input-sm"
                                        placeholder="User Name">
@@ -19,34 +19,34 @@
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="text" id="fName" class="form-control input-sm" placeholder="First Name">
+                                        <input type="text" required id="fName" class="form-control input-sm" placeholder="First Name">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="text" id="lName" formControlName="lName" class="form-control input-sm" placeholder="Last Name">
+                                        <input type="text" required id="lName" formControlName="lName" class="form-control input-sm" placeholder="Last Name">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <input type="email" id="email" email class="form-control input-sm" placeholder="Email Address">
+                                <input type="email" required id="email" email class="form-control input-sm" placeholder="Email Address">
                             </div>
 
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="password" id="password" class="form-control input-sm" placeholder="Password">
+                                        <input type="password" required id="password" class="form-control input-sm" placeholder="Password">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="password" id="confirmPassword"  class="form-control input-sm"
+                                        <input type="password" required id="confirmPassword"  class="form-control input-sm"
                                                placeholder="Confirm Password">
                                     </div>
                                 </div>
                             </div>
-                            <input type="submit" value="register" class="btn btn-info btn-block">
+                            <input on-click="onSubmit" type="submit" required value="register" class="btn btn-info btn-block">
                         </form>
                     </div>
                     <div>
@@ -67,19 +67,34 @@
         password: "Password is not valid, min length is 6",
         lName: "Last Name is not valid min length is 4 and maximum is 15",
         fName: "First Name is not valid min length is 4 and maximum is 15",
-        userName: "User Name is not valid min length is 4 and maximum is 15",
+        userName: "User Name is not valid min length is 4 and maximum is 15"
+    };
 
-
-
-    }
     Polymer({
         is: 'registration-form',
         properties: {
-            who: {
-                type: String,
-                value: 'World'
+            registrationSuccess: {
+                type: Boolean,
+                value: false
             },
-            registrationSuccess: false
+            signUpForm: {
+                type: HTMLElement,
+                value: document.getElementById('signUpForm')
+            }
+        },
+        onSubmit: function(event){
+            for(let i in signUpForm){
+                let formElement = signUpForm[i];
+                formElement.validationMessage = this.setValidationMessage(formElement.id);
+                debugger;
+            }
+
+            //alert("form submit calls")
+        },
+
+        setValidationMessage: function(id) {
+            return errorMsg[id];
         }
+
     });
 </script>
