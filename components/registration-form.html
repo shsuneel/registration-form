@@ -1,0 +1,85 @@
+<!-- Imports polymer -->
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<!-- Defines element markup -->
+<dom-module id="registration-form">
+    <template>
+        <div class="container" style="top: 30px; position: absolute">
+            <div class="col-md-8 col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please sign up</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" (ngSubmit)="onSubmit()">
+                            <div class="form-group">
+                                <input type="text" required id="userName"  class="form-control input-sm"
+                                       placeholder="User Name">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" id="fName" class="form-control input-sm" placeholder="First Name">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" id="lName" formControlName="lName" class="form-control input-sm" placeholder="Last Name">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" id="email" email class="form-control input-sm" placeholder="Email Address">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" id="password" class="form-control input-sm" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" id="confirmPassword"  class="form-control input-sm"
+                                               placeholder="Confirm Password">
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" value="register" class="btn btn-info btn-block">
+                        </form>
+                    </div>
+                    <div>
+                        <h4>{{registrationSuccess}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+
+    const errorMsg = {
+        email: "Email is not valid",
+        confirmPassword: "Confirm Password is not valid, min length is 6 and should match to Password",
+        password: "Password is not valid, min length is 6",
+        lName: "Last Name is not valid min length is 4 and maximum is 15",
+        fName: "First Name is not valid min length is 4 and maximum is 15",
+        userName: "User Name is not valid min length is 4 and maximum is 15",
+
+
+
+    }
+    Polymer({
+        is: 'registration-form',
+        properties: {
+            who: {
+                type: String,
+                value: 'World'
+            },
+            registrationSuccess: false
+        }
+    });
+</script>

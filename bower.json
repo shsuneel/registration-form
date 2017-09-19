@@ -1,0 +1,21 @@
+{
+    "name": "my-interview-with-ing",
+    "version": "1.0.0",
+    "description": "my interview component with polymer",
+    "authors": [
+        "WebComponents.org"
+    ],
+    "license": "open",
+    "main": "registration-form.html",
+    "keywords": [
+        "polymer",
+        "web-components"
+    ],
+    "ignore": [
+        "**/.*",
+        "bower_components"
+    ],
+    "dependencies": {
+        "polymer": "Polymer/polymer#^1.0.0"
+    }
+}
