@@ -97,12 +97,13 @@
             }
         },
         onSubmit: function (event) {
-            event.preventDefault();
             var formData;
+            this.passwordCheck = "";
             if (password.value !== confirmPassword.value) {
-                this.passwordCheck = "Passwords are not matched"
-                return;
-            } else {
+                event.preventDefault();
+                this.passwordCheck = "Passwords are not matched";
+            } else if(signUpForm.checkValidity()) {
+                event.preventDefault();
                 formData = {
                     password: signUpForm.elements.password.value,
                     userName: signUpForm.elements.userName.value,
@@ -110,7 +111,11 @@
                     fName: signUpForm.elements.fName.value,
                     email: signUpForm.elements.email.value
                 }
-                this.dispatchEvent(new CustomEvent('onformsubmit', {bubbles: true, composed: true, detail: formData}));
+                this.dispatchEvent(new CustomEvent('onformsubmit', {
+                    bubbles: true,
+                    composed: true,
+                    detail: formData
+                }));
             }
         }
     });
