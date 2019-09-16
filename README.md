@@ -7,3 +7,5 @@ to run this
 - bower install
 
 - polyserve
+
+-d
