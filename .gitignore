@@ -1,6 +1,6 @@
 # compiled output
 /bower_components
-
+./node_modules
 # IDEs and editors
 .idea
 .idea/encodings.xml
