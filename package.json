@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/shsuneel/my-interview/issues"
   },
-  "homepage": "https://github.com/shsuneel/my-interview#readme"
+  "homepage": "https://github.com/shsuneel/my-interview#readme",
+  "devDependencies": {
+    "validate-commit-msg": "^2.14.0"
+  }
 }
